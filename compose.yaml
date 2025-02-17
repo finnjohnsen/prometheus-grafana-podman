@@ -6,6 +6,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - 9090:9090
+    network_mode: "slirp4netns:allow_host_loopback=true"
     restart: unless-stopped
     volumes:
       - ./prometheus:/etc/prometheus
@@ -15,12 +16,13 @@ services:
     container_name: grafana
     ports:
       - 3000:3000
+    network_mode: "slirp4netns:allow_host_loopback=true"
     restart: unless-stopped
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - ./grafana:/etc/grafana/provisioning/datasources
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
   podman-exporter:
     container_name: podman-exporter
     image: quay.io/navidys/prometheus-podman-exporter
