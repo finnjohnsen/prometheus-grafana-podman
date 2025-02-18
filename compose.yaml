@@ -23,6 +23,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - graf_data:/var/lib/grafana
+
   podman-exporter:
     container_name: podman-exporter
     image: quay.io/navidys/prometheus-podman-exporter
@@ -40,3 +42,4 @@ services:
 
 volumes:
   prom_data:
+  graf_data:
